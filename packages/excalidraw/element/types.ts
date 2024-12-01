@@ -246,6 +246,13 @@ export type ExcalidrawTextElement = _ExcalidrawElementBase &
      * @default true
      */
     autoResize: boolean;
+
+    /**
+     * If `false` the text inside the element is considered variable and is goign to be generated from back end
+     *
+     * @default false
+     */
+    variableText: boolean;
     /**
      * Unitless line height (aligned to W3C). To get line height in px, multiply
      *  with font size (using `getLineHeightInPx` helper).

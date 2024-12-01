@@ -1,3 +1,8 @@
+# Note
+this is a custom version of excalidraw that has some extra features for selecting color and text
+
+this version only works with our custom back-end and has no use for others
+
 <a href="https://excalidraw.com/" target="_blank" rel="noopener">
   <picture>
     <source media="(prefers-color-scheme: dark)" alt="Excalidraw" srcset="https://excalidraw.nyc3.cdn.digitaloceanspaces.com/github/excalidraw_github_cover_2_dark.png" />

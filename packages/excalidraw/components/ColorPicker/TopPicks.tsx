@@ -5,6 +5,7 @@ import {
   DEFAULT_ELEMENT_BACKGROUND_PICKS,
   DEFAULT_ELEMENT_STROKE_PICKS,
 } from "../../colors";
+import { variableIcon } from "../icons";
 
 interface TopPicksProps {
   onChange: (color: string) => void;
@@ -34,14 +35,12 @@ export const TopPicks = ({
 
   // this one can overwrite defaults
   if (topPicks) {
-    colors = topPicks;
+    colors = [...topPicks, "variable"];
   }
-
   if (!colors) {
     console.error("Invalid type for TopPicks");
     return null;
   }
-
   return (
     <div className="color-picker__top-picks">
       {colors.map((color: string) => (
@@ -58,6 +57,7 @@ export const TopPicks = ({
           data-testid={`color-top-pick-${color}`}
         >
           <div className="color-picker__button-outline" />
+          {color === "variable" && variableIcon}
         </button>
       ))}
     </div>
