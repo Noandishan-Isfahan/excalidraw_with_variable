@@ -257,6 +257,7 @@ export const newTextElement = (
     originalText: opts.originalText ?? text,
     autoResize: opts.autoResize ?? true,
     lineHeight,
+    variableText: false,
   };
 
   const textElement: ExcalidrawTextElement = newElementWith(
