@@ -2236,3 +2236,22 @@ export const elementLinkIcon = createIcon(
   </g>,
   tablerIconProps,
 );
+// export const variableIcon = createIcon(
+//   <g>
+//     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+//   <path d="M5 4c-2.5 5 -2.5 10 0 16m14 -16c2.5 5 2.5 10 0 16m-10 -11h1c1 0 1 1 2.016 3.527c.984 2.473 .984 3.473 1.984 3.473h1" />
+//   <path d="M8 16c1.5 0 3 -2 4 -3.5s2.5 -3.5 4 -3.5" />
+//   </g>,
+//   tablerIconProps,
+// );
+export const variableIcon = createIcon(
+  <g>
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v7.5" />
+    <path d="M9 4v13" />
+    <path d="M15 7v5.5" />
+    <path d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879z" />
+    <path d="M19 18v.01" />
+  </g>,
+  tablerIconProps,
+);

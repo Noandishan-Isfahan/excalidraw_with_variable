@@ -73,6 +73,7 @@ import type {
 
 import { trackEvent } from "../analytics";
 import { ButtonIconSelect } from "../components/ButtonIconSelect";
+import { CheckboxItem } from "../components/CheckboxItem";
 import { ColorPicker } from "../components/ColorPicker/ColorPicker";
 import { FontPicker } from "../components/FontPicker/FontPicker";
 import { IconPicker } from "../components/IconPicker";
@@ -288,6 +289,51 @@ const changeFontSize = (
           : fallbackValue ?? appState.currentItemFontSize,
     },
     captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+  };
+};
+const changeIsTextVariable = (
+  elements: readonly ExcalidrawElement[],
+  appState: AppState,
+  app: AppClassProperties,
+  getNewValue: (element: ExcalidrawTextElement) => boolean,
+  fallbackValue?: false,
+) => {
+  return {
+    elements: changeProperty(
+      elements,
+      appState,
+      (oldElement) => {
+        if (isTextElement(oldElement)) {
+          const newFontSize = getNewValue(oldElement);
+
+          let newElement: ExcalidrawTextElement = newElementWith(oldElement, {
+            variableText: newFontSize,
+          });
+          redrawTextBoundingBox(
+            newElement,
+            app.scene.getContainerElement(oldElement),
+            app.scene.getNonDeletedElementsMap(),
+          );
+
+          newElement = offsetElementAfterFontResize(oldElement, newElement);
+
+          return newElement;
+        }
+
+        return oldElement;
+      },
+      true,
+    ),
+    appState: {
+      ...appState,
+      // update state only if we've set all select text elements to
+      // the same font size
+      // currentItemFontSize:
+      //   newFontSizes.size === 1
+      //     ? [...newFontSizes][0]
+      //     : fallbackValue ?? appState.currentItemFontSize,
+    },
+    storeAction: StoreAction.CAPTURE,
   };
 };
 
@@ -724,6 +770,43 @@ export const actionChangeFontSize = register({
         onChange={(value) => updateData(value)}
       />
     </fieldset>
+  ),
+});
+export const actionIsTextVariable = register({
+  name: "isTextVariable",
+  label: "labels.isTextVariable",
+  trackEvent: false,
+  perform: (elements, appState, value, app) => {
+    return changeIsTextVariable(elements, appState, app, () => value, value);
+  },
+  PanelComponent: ({ elements, appState, updateData, app }) => (
+    <>
+      <legend>{t("labels.isTextVariable")}</legend>
+      <CheckboxItem
+        checked={
+          getFormValue(
+            elements,
+            appState,
+            (element) => {
+              if (isTextElement(element)) {
+                return element.variableText;
+              }
+              const boundTextElement = getBoundTextElement(
+                element,
+                app.scene.getNonDeletedElementsMap(),
+              );
+              if (boundTextElement) {
+                return boundTextElement.variableText;
+              }
+              return false;
+            },
+            true,
+            appState.currentItemIsTextVariable,
+          ) ?? undefined
+        }
+        onChange={(checked) => updateData(checked)}
+      ></CheckboxItem>
+    </>
   ),
 });
 

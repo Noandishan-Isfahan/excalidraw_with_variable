@@ -113,7 +113,6 @@ export const SelectedShapeActions = ({
   app: AppClassProperties;
 }) => {
   const targetElements = getTargetElements(elementsMap, appState);
-
   let isSingleElementBoundContainer = false;
   if (
     targetElements.length === 2 &&
@@ -197,7 +196,8 @@ export const SelectedShapeActions = ({
           {renderAction("changeFontSize")}
           {(appState.activeTool.type === "text" ||
             suppportsHorizontalAlign(targetElements, elementsMap)) &&
-            renderAction("changeTextAlign")}
+            renderAction("changeTextAlign") &&
+            renderAction("isTextVariable")}
         </>
       )}
 

@@ -252,6 +252,7 @@ const restoreElement = (
 
       let fontSize = element.fontSize;
       let fontFamily = element.fontFamily;
+      const variableText = element.variableText;
       if ("font" in element) {
         const [fontPx, _fontFamily]: [string, string] = (
           element as any
@@ -284,6 +285,7 @@ const restoreElement = (
         originalText: element.originalText || text,
         autoResize: element.autoResize ?? true,
         lineHeight,
+        variableText,
       });
 
       // if empty text, mark as deleted. We keep in array

@@ -47,6 +47,17 @@ export const FONT_METADATA: Record<number, FontMetadata> = {
       lineHeight: 1.35,
     },
   },
+<<<<<<< Updated upstream
+=======
+  [FONT_FAMILY.Vazirmatn]: {
+    metrics: {
+      unitsPerEm: 1000,
+      ascender: 1011,
+      descender: -353,
+      lineHeight: 1.35,
+    },
+  },
+>>>>>>> Stashed changes
   [FONT_FAMILY["Lilita One"]]: {
     metrics: {
       unitsPerEm: 1000,
