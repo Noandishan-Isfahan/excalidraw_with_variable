@@ -16,7 +16,8 @@ import "./css/app.scss";
 import "./css/styles.scss";
 import "./fonts/fonts.css";
 
-import type { AppProps, ExcalidrawProps } from "./types";
+import type { AppProps, ExcalidrawProps, ExcalidrawImperativeAPI, UIOptions } from "./types";
+
 
 polyfill();
 
@@ -304,3 +305,5 @@ export { getDataURL } from "./data/blob";
 export { isElementLink } from "@excalidraw/element/elementLink";
 
 export { setCustomTextMetricsProvider } from "@excalidraw/element/textMeasurements";
+export { ExcalidrawImperativeAPI, UIOptions }
+
