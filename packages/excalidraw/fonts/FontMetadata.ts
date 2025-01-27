@@ -53,6 +53,15 @@ export const FONT_METADATA: Record<number, FontMetadata> = {
     },
     icon: FontFamilyNormalIcon,
   },
+  [FONT_FAMILY.Vazirmatn]: {
+    metrics: {
+      unitsPerEm: 1000,
+      ascender: 1011,
+      descender: -353,
+      lineHeight: 1.35,
+    },
+    icon: FontFamilyNormalIcon,
+  },
   [FONT_FAMILY["Lilita One"]]: {
     metrics: {
       unitsPerEm: 1000,

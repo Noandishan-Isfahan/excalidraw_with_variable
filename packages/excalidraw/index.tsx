@@ -8,7 +8,7 @@ import "./css/app.scss";
 import "./css/styles.scss";
 import "./fonts/fonts.css";
 
-import type { AppProps, ExcalidrawProps } from "./types";
+import type { AppProps, ExcalidrawProps, ExcalidrawImperativeAPI, UIOptions } from "./types";
 import { defaultLang } from "./i18n";
 import { DEFAULT_UI_OPTIONS } from "./constants";
 import { EditorJotaiProvider, editorJotaiStore } from "./editor-jotai";
@@ -298,3 +298,4 @@ export { getDataURL } from "./data/blob";
 export { isElementLink } from "./element/elementLink";
 
 export { setCustomTextMetricsProvider } from "./element/textMeasurements";
+export { ExcalidrawImperativeAPI, UIOptions }
