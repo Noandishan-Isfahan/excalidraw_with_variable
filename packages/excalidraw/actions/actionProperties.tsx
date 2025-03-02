@@ -139,6 +139,7 @@ import { register } from "./register";
 
 import type { CaptureUpdateActionType } from "../store";
 import type { AppClassProperties, AppState, Primitive } from "../types";
+import { TextField } from "../components/TextField";
 
 const FONT_SIZE_RELATIVE_INCREASE_STEP = 0.1;
 
@@ -333,7 +334,7 @@ const changeIsTextVariable = (
       //     ? [...newFontSizes][0]
       //     : fallbackValue ?? appState.currentItemFontSize,
     },
-    storeAction: StoreAction.CAPTURE,
+    captureUpdate: CaptureUpdateAction.EVENTUALLY,
   };
 };
 
@@ -352,8 +353,8 @@ export const actionChangeStrokeColor = register({
           (el) => {
             return hasStrokeColor(el.type)
               ? newElementWith(el, {
-                  strokeColor: value.currentItemStrokeColor,
-                })
+                strokeColor: value.currentItemStrokeColor,
+              })
               : el;
           },
           true,
@@ -503,8 +504,8 @@ export const actionChangeFillStyle = register({
           onClick={(value, event) => {
             const nextValue =
               event.altKey &&
-              value === "hachure" &&
-              selectedElements.every((el) => el.fillStyle === "hachure")
+                value === "hachure" &&
+                selectedElements.every((el) => el.fillStyle === "hachure")
                 ? "zigzag"
                 : value;
 
@@ -806,6 +807,56 @@ export const actionIsTextVariable = register({
         }
         onChange={(checked) => updateData(checked)}
       ></CheckboxItem>
+    </>
+  ),
+});
+export const actionChangeName = register({
+  name: "changeName",
+  label: "labels.changeName",
+  trackEvent: false,
+  perform: (elements, appState, value, app) => {
+    return {
+      elements: changeProperty(
+        elements,
+        appState,
+        (oldElement) => {
+          let newElement: ExcalidrawElement = newElementWith(oldElement, {
+            elementName: value,
+          });
+
+          return newElement;
+        },
+        true,
+      ),
+      appState: {
+        ...appState,
+        // update state only if we've set all select text elements to
+        // the same font size
+        // currentItemFontSize:
+        //   newFontSizes.size === 1
+        //     ? [...newFontSizes][0]
+        //     : fallbackValue ?? appState.currentItemFontSize,
+      },
+      captureUpdate: CaptureUpdateAction.EVENTUALLY,
+    };
+  },
+  PanelComponent: ({ elements, appState, updateData, app }) => (
+    <>
+      <legend>{t("labels.changeName")}</legend>
+      <TextField
+        value={
+          getFormValue(
+            elements,
+            appState,
+            (element) => {
+              return element.elementName ?? ""
+            },
+            true,
+            "",
+          ) ?? undefined
+        }
+        onChange={(checked) => updateData(checked)}
+      ></TextField>
     </>
   ),
 });
@@ -1671,8 +1722,8 @@ export const actionChangeArrowType = register({
         roundness:
           value === ARROW_TYPE.round
             ? {
-                type: ROUNDNESS.PROPORTIONAL_RADIUS,
-              }
+              type: ROUNDNESS.PROPORTIONAL_RADIUS,
+            }
             : null,
         elbowed: value === ARROW_TYPE.elbow,
         points:
@@ -1723,29 +1774,29 @@ export const actionChangeArrowType = register({
         const startElement = startHoveredElement
           ? startHoveredElement
           : newElement.startBinding &&
-            (elementsMap.get(
-              newElement.startBinding.elementId,
-            ) as ExcalidrawBindableElement);
+          (elementsMap.get(
+            newElement.startBinding.elementId,
+          ) as ExcalidrawBindableElement);
         const endElement = endHoveredElement
           ? endHoveredElement
           : newElement.endBinding &&
-            (elementsMap.get(
-              newElement.endBinding.elementId,
-            ) as ExcalidrawBindableElement);
+          (elementsMap.get(
+            newElement.endBinding.elementId,
+          ) as ExcalidrawBindableElement);
 
         const finalStartPoint = startHoveredElement
           ? bindPointToSnapToElementOutline(
-              newElement,
-              startHoveredElement,
-              "start",
-            )
+            newElement,
+            startHoveredElement,
+            "start",
+          )
           : startGlobalPoint;
         const finalEndPoint = endHoveredElement
           ? bindPointToSnapToElementOutline(
-              newElement,
-              endHoveredElement,
-              "end",
-            )
+            newElement,
+            endHoveredElement,
+            "end",
+          )
           : endGlobalPoint;
 
         startHoveredElement &&
@@ -1885,8 +1936,8 @@ export const actionChangeArrowType = register({
                 return element.elbowed
                   ? ARROW_TYPE.elbow
                   : element.roundness
-                  ? ARROW_TYPE.round
-                  : ARROW_TYPE.sharp;
+                    ? ARROW_TYPE.round
+                    : ARROW_TYPE.sharp;
               }
 
               return null;

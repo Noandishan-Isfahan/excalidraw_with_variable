@@ -95,6 +95,7 @@ export type ActionName =
   | "changeFontFamily"
   | "changeTextAlign"
   | "isTextVariable"
+  | "changeName"
   | "changeVerticalAlign"
   | "toggleFullScreen"
   | "toggleShortcuts"

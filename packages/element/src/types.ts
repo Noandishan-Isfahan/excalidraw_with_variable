@@ -79,6 +79,7 @@ type _ExcalidrawElementBase = Readonly<{
   link: string | null;
   locked: boolean;
   customData?: Record<string, any>;
+  elementName?: string
 }>;
 
 export type ExcalidrawSelectionElement = _ExcalidrawElementBase & {
@@ -202,7 +203,7 @@ export type ExcalidrawRectanguloidElement =
  * no computed data. The list of all ExcalidrawElements should be shareable
  * between peers and contain no state local to the peer.
  */
-export type ExcalidrawElement =
+export type  ExcalidrawElement =
   | ExcalidrawGenericElement
   | ExcalidrawTextElement
   | ExcalidrawLinearElement

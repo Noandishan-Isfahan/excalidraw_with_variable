@@ -156,6 +156,10 @@ export const SelectedShapeActions = ({
     <div className="panelColumn">
       <div>
         {canChangeStrokeColor(appState, targetElements) &&
+          renderAction("changeName")}
+      </div>
+      <div>
+        {canChangeStrokeColor(appState, targetElements) &&
           renderAction("changeStrokeColor")}
       </div>
       {canChangeBackgroundColor(appState, targetElements) && (
